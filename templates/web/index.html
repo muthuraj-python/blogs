@@ -40,7 +40,7 @@
             {% else %}
             <a href="/" class="collection-item"><span class="badge">{{total_count}}</span>ALL</a>
             {% endif %}
-            {% for blog in blog_list %}
+            {% for blog in blog_count_list %}
                {% if active == blog.name %}
                   <a href="/blog/?blog={{blog.name}}" style="color: #E57373" class="collection-item"><span class="badge">{{blog.entry__count}}</span>{{blog.name}}</a>
                {% else %}

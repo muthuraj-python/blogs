@@ -6,15 +6,13 @@ from blogs.models import Blog, Entry, UserComment
 
 class BlogListView(ListView):
 	template_name = "web/index.html"
-
-	def get_queryset(self):
-
-		return Blog.objects.filter(entry__published=True).annotate(Count('entry'))
+	model = Blog
 
 	def get_context_data(self, **karg):
 
 		context = super(BlogListView, self).get_context_data(**karg)
 		context["entrys"] = Entry.objects.filter(published=True).order_by('-pub_date')
+		context["blog_count_list"] = Blog.objects.filter(entry__published=True).annotate(Count('entry'))
 		context["active"] = 'ALL'
 		context["total_count"] = context["entrys"].count()
 		if self.request.GET:
