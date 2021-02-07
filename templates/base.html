@@ -1,0 +1,112 @@
+{% load static %}
+<html>
+   <head>
+      <title>Whatsup</title>
+      <link rel="shortcut icon" href="/static/icons/favicon.ico">
+      <!-- materialize CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!-- Material Icons CSS -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Jquery -->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <!-- DataTable JS -->
+      <style type="text/css">
+         nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i{
+         height: 45px !important;
+         }
+         nav {
+         background-color: #124191 !important;
+         line-height: 48px !important;
+         }
+         .pageTitle{
+         position: relative;
+         left: 588px;
+         font-size: 22px;
+         }
+         .modal_upload_div {
+         width: 100% !important;
+         max-height: 100% !important;
+         top: 0% !important;
+         overflow-y: auto;
+         }
+         .fs_icon {
+         font-size: 35px !important;
+         line-height: 50px !important;
+         }
+         .page-footer {
+         padding-top: 0px !important;
+         }
+      </style>
+      {% block page_custom_css %}{% endblock %}
+      <!-- Nav Bar -->
+      <div class="navbar-fixed">
+         <nav>
+            <div class="nav-wrapper" style="position: sticky;top: 0px">
+
+               <a href="/" class="brand-logo" style="left: 65px"><img style="height: 50px" src="{% static 'img/whatsup.png' %}"/></a><div class="col s12" style="padding-left: 200px">{% block breadcrumbs %}{% endblock %}</div>
+               <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+               <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+               </ul>
+            </div>
+         </nav>
+      </div>
+      <ul class="sidenav" id="mobile-demo">
+         <li>
+            <div class="background">
+               <img src="{% static 'img/whatsup.png' %}" style="background-color: #124191;width: 300px;">
+            </div>
+         </li>
+         <li><a href="/">Home</a></li>
+         <li title="Full Screen" id="maximize"><a href="#"><i id="goFS" class="material-icons fs_icon">
+            fullscreen</i></a>
+         </li>
+         <li id="minimize" style="display: none;"><a href="#"><i id="goFS" class="material-icons fs_icon">fullscreen_exit</i></a></li>
+      </ul>
+   </head>
+   <main>
+         <div class="progress light-blue darken-2" id="page-progress">
+            <div class="indeterminate light-blue lighten-2"></div>
+         </div>
+         <!-- Page content -->
+         {% block content %}{% endblock %}
+         <!-- Page Custom JS -->
+         {% block page_custom_js %}{% endblock %}
+   </main>
+   <!-- Footer -->
+   <!-- <footer style="background-color: #124191;height: 25px;text-align: center;color: #ffffff">
+      © 2020 Copyright Text
+      
+      </footer> -->
+   <br><br><br>
+   <footer class="page-footer" style="position:fixed;bottom:0;left:0;width:100%;background-color: #124191 !important; z-index: 12; text-align: center;">
+      © 2020 All rights reserved.
+   </footer>
+   <!-- Close Page Loader -->
+   <script type="text/javascript">
+      $(document).ready(function(){
+         $('.sidenav').sidenav();
+      });
+      $( window ).on( "load", function() {
+         $("#page-progress").hide();
+         $('.fs_icon').click(function (e) {
+            var doc = window.document;
+            var docEl = doc.documentElement;
+            var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+            var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+      
+            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+              requestFullScreen.call(docEl);
+              $('#maximize').css("display", "none")
+              $('#minimize').css("display", "block")
+            } else {
+              cancelFullScreen.call(doc);
+              $('#maximize').css("display", "block")
+              $('#minimize').css("display", "none")
+            }
+         });
+      });     
+   </script>
+</html>
